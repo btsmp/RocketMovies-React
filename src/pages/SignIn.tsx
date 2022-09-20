@@ -19,10 +19,14 @@ export function SignIn() {
           <form className="flex gap-2 flex-col">
             <Input type='text' placeholder='E-mail' icon={FiMail} />
             <Input type='password' placeholder='Senha' icon={FiLock} />
-            <Button title='Entrar' />
+            <div className="h-14">
+              <Button title="Entrar" />
+            </div>
           </form>
         </div>
-        <TextButton link='#' title='Criar conta' />
+        <div className='flex justify-center'>
+          <TextButton link='#' title='Criar conta' />
+        </div>
       </div>
       <CineBg />
     </div>

@@ -9,6 +9,9 @@ module.exports = {
       serif: [ 'Roboto Slab', 'serif' ],
     },
     extend: {
+      colors: {
+        'gray-light': '#3E3B47',
+      },
     },
   },
   plugins: [],

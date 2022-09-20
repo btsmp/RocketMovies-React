@@ -4,7 +4,7 @@ import { Input } from "../components/Input";
 import { TextButton } from "../components/TextButton";
 import { Title } from "../components/Title";
 import { TitleForm } from './../components/TitleForm';
-import { FiLock, FiMail, FiUser } from "react-icons/fi"
+import { FiLock, FiMail, FiUser, FiArrowLeft } from "react-icons/fi"
 
 export function SignUp() {
   return (
@@ -20,10 +20,14 @@ export function SignUp() {
             <Input type="text" placeholder="Nome" icon={FiUser} />
             <Input type="text" placeholder="E-mail" icon={FiMail} />
             <Input type="password" placeholder="Senha" icon={FiLock} />
-            <Button title="Cadastrar" />
+            <div className="h-14">
+              <Button title="Cadastrar" />
+            </div>
           </form>
         </div>
-        <TextButton link="#" title="Voltar para o login" />
+        <div className="flex justify-center">
+          <TextButton link="#" title="Voltar para o login" icon={FiArrowLeft} />
+        </div>
       </div>
       <CineBg />
     </div>
