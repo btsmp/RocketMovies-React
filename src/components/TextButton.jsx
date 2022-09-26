@@ -1,10 +1,4 @@
-interface TextButtonProps {
-  title: string
-  link?: string
-  icon?: any
-}
-
-export function TextButton(props: TextButtonProps) {
+export function TextButton(props) {
   const { link, title, icon: Icon } = props
   return (
     <a

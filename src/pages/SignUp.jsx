@@ -3,7 +3,7 @@ import { CineBg } from "../components/CineBg";
 import { Input } from "../components/Input";
 import { TextButton } from "../components/TextButton";
 import { Title } from "../components/Title";
-import { TitleForm } from './../components/TitleForm';
+import { TitleForm } from '../components/TitleForm';
 import { FiLock, FiMail, FiUser, FiArrowLeft } from "react-icons/fi"
 
 export function SignUp() {

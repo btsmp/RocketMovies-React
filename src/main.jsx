@@ -6,8 +6,10 @@ import { SignUp } from './pages/SignUp'
 import { SignIn } from './pages/SignIn'
 import { Home } from './pages/Home';
 import { Profile } from './pages/Profile'
+import { MovieNote } from './pages/MovieNote'
+import { NewNote } from './pages/NewNote'
 
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <SignUp />
   </React.StrictMode>

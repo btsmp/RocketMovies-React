@@ -1,9 +1,4 @@
-interface ButtonProps {
-  title: string
-  icon?: any
-}
-
-export function Button(props: ButtonProps) {
+export function Button(props) {
   const { title, icon: Icon } = props
   return (
     <button className="

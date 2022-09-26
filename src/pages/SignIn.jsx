@@ -1,7 +1,7 @@
 import { Input } from '../components/Input'
 import { FiLock, FiMail } from "react-icons/fi"
 import { Button } from '../components/Button'
-import { Title } from './../components/Title';
+import { Title } from '../components/Title';
 import { CineBg } from '../components/CineBg';
 import { TextButton } from '../components/TextButton';
 import { TitleForm } from '../components/TitleForm';
