@@ -11,6 +11,6 @@ import { NewNote } from './pages/NewNote'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <SignUp />
+    <NewNote />
   </React.StrictMode>
 )
