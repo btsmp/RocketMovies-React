@@ -3,7 +3,7 @@ import { TextButton } from "../components/TextButton";
 import { FiLock, FiMail, FiUser, FiCamera, FiArrowLeft } from "react-icons/fi"
 import { TitleMovie } from "../components/TitleMovie";
 import { Stars } from "../components/Stars";
-import { Tags } from "../components/Tags";
+import { Tag } from "../components/Tag";
 
 export function MovieNote() {
   return (

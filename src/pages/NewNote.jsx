@@ -1,50 +1,121 @@
-import { Header } from "../components/Header";
-import { Input } from '../components/Input';
-import { Marker } from "../components/Marker";
-import { TextButton } from "../components/TextButton";
 import { TitleForm } from './../components/TitleForm';
-import { FiArrowLeft } from "react-icons/fi"
+import { TextButton } from "../components/TextButton";
 import { Button } from './../components/Button';
+import { Header } from "../components/Header";
+import { Marker } from "../components/Marker";
+import { FiArrowLeft } from "react-icons/fi";
+import { Input } from '../components/Input';
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { api } from './../services/api';
+import { toast } from 'react-toastify';
 
 export function NewNote() {
+
+  const [ title, setTitle ] = useState('')
+  const [ description, setDescription ] = useState('')
+
+  const [ rating, setRating ] = useState()
+
+  const [ tags, setTags ] = useState([])
+  const [ tagValue, setTagValue ] = useState('')
+
+  const navigate = useNavigate()
+
+  function handleAddTag() {
+    if (!tagValue) {
+      return
+    }
+    setTags(prevState => [ ...prevState, tagValue ])
+
+    setTagValue('')
+  }
+
+  function handleRemoveTag(deleted) {
+    setTags(prevState => prevState.filter(tag => tag !== deleted))
+  }
+
+  function handleCreateNote(e) {
+    e.preventDefault()
+
+    if (!title | !description | !rating) {
+      return toast.warning('Preencha todos os campos')
+    }
+
+    api.post('/notes', {
+      title,
+      description,
+      rating: Number(rating),
+      tags
+    })
+    toast.success('Nota criada!')
+    navigate('/')
+  }
+
+
+
   return (
     <div className="grid grid-flow-row h-screen">
       <Header />
       <div className="px-24 overflow-y-scroll">
         <div>
-          <TextButton title='Voltar' icon={FiArrowLeft} />
+          <TextButton to="/" title='Voltar' icon={FiArrowLeft} />
         </div>
         <div className="my-8">
           <TitleForm title='Novo filme' />
         </div>
         <form className="flex flex-col gap-10 mb-36">
           <div className="flex gap-10">
-            <Input placeholder="Título" type="text" />
-            <Input placeholder="Sua nota (de 0 a 5)" type="number" />
+            <Input placeholder="Título" type="text" onChange={e => setTitle(e.target.value)} />
+            <select
+              className="block  w-full bg-[#262529] text-[#948F99] p-4 rounded-lg focus:outline-none"
+              placeholder='Sua nota'
+              onChange={e => setRating(e.target.value)}
+            >
+              <option value={null}>Sua nota</option>
+              <option value={1}>1</option>
+              <option value={2}>2</option>
+              <option value={3}>3</option>
+              <option value={4}>4</option>
+              <option value={5}>5</option>
+            </select>
           </div>
           <div>
             <textarea
               rows={10}
               placeholder='Observações'
-              className="resize-none w-full bg-[#262529] rounded-lg text-[#948F99] p-4"
+              className="resize-none w-full bg-[#262529] rounded-lg text-[#948F99] p-4 outline-none"
+              onChange={e => setDescription(e.target.value)}
             />
           </div>
           <div>
             <TitleForm title='Marcadores' />
             <div className="bg-[#0D0C0F] flex flex-wrap rounded-lg gap-6 p-4 mt-6">
-              <Marker value='React' />
-              <Marker isNew={true} placeholder="Novo marcador" />
+              {
+                tags &&
+                tags.map((tag, index) => (
+                  <Marker
+                    value={tag}
+                    key={index}
+                    onClick={() => handleRemoveTag(tag)}
+                  />
+                ))
+              }
+              <Marker
+                isNew
+                placeholder="Novo marcador"
+                value={tagValue}
+                onClick={handleAddTag}
+                onChange={e => setTagValue(e.target.value)}
+              />
             </div>
           </div>
 
-          <div className="flex gap-10 w-full items-center justify-center">
-            <button className=" bg-[#0D0C0F] text-[#FF859B] rounded-lg w-1/2 p-4">
-              Excluir filme
-            </button>
-            <div className="w-1/2 h-[56px]">
-              <Button title='Salvar alterações' />
-            </div>
+
+          <div className="w-full h-[56px]">
+            <Button title='Salvar' onClick={e => handleCreateNote(e)} />
           </div>
+
         </form>
       </div >
     </div >

@@ -1,7 +1,9 @@
 export function Button(props) {
-  const { title, icon: Icon } = props
+  const { title, icon: Icon, ...rest } = props
   return (
-    <button className="
+    <button
+      {...rest}
+      className="
     text-center bg-[#FF859B] rounded-lg hover:brightness-75 duration-75 w-full h-full flex items-center justify-center gap-2"
     >
       {Icon && <Icon size={18} />}{title}
