@@ -10,6 +10,8 @@ Tecnologias usadas:
 - [x] Toastfy
 - [x] JWT-Decode
 - [x] React Hook Form
+  
+#
 
 Features implementadas:
 - [x] Login Social com google
@@ -19,6 +21,7 @@ Features implementadas:
 - [x] Uso da ContextAPI para fazer a autenticação JWT
 
  #
+
  Links úteis
 - [x] [Live Demo](https://rocketmovie-bsmp.netlify.app)
 - [x] [Back end](https://github.com/btsmp/RocketMovies-Server)
