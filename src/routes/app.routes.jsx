@@ -1,8 +1,8 @@
 import { Route, Routes } from "react-router-dom";
-import { Home } from "../pages/Home";
+import { MovieNote } from '../pages/MovieNote';
 import { NewNote } from "../pages/NewNote";
 import { Profile } from "../pages/Profile";
-import { MovieNote } from './../pages/MovieNote';
+import { Home } from "../pages/Home";
 
 export function AppRoutes() {
   return (
@@ -10,7 +10,7 @@ export function AppRoutes() {
       <Route path="/" element={<Home />} />
       <Route path="/new" element={<NewNote />} />
       <Route path="/profile" element={<Profile />} />
-      <Route path="/details" element={<MovieNote />} />
+      <Route path="/details/:note_id" element={<MovieNote />} />
     </Routes>
   )
 }

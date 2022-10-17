@@ -1,29 +1,29 @@
-import { LoadingContainer } from '../components/LoadingContainer'
-import { TextButton } from '../components/TextButton'
-import { TitleForm } from '../components/TitleForm'
-import { GoogleLogin } from '@react-oauth/google'
-import { FiLock, FiMail } from "react-icons/fi"
-import 'react-toastify/dist/ReactToastify.css'
-import { Notify } from '../components/notify'
-import { CineBg } from '../components/CineBg'
-import { Button } from '../components/Button'
-import { Title } from '../components/Title'
-import { Input } from '../components/Input'
-import { useAuth } from '../hooks/auth'
-import { toast } from 'react-toastify'
+import { LoadingContainer } from '../components/LoadingContainer';
+import { TextButton } from '../components/TextButton';
+import { TitleForm } from '../components/TitleForm';
+import { GoogleLogin } from '@react-oauth/google';
+import { FiLock, FiMail } from "react-icons/fi";
+import { Notify } from '../components/notify';
+import { CineBg } from '../components/CineBg';
+import { Button } from '../components/Button';
+import { Title } from '../components/Title';
+import { Input } from '../components/Input';
+import { useForm } from 'react-hook-form';
+import { useAuth } from '../hooks/auth';
+import { toast } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 import jwt_decode from "jwt-decode";
-
-import { useState } from 'react'
-
-
 
 export function SignIn() {
   const { signIn, signInWithGoogle, loading } = useAuth()
-  const [ email, setEmail ] = useState('')
-  const [ password, setPassword ] = useState('')
+  const { register, handleSubmit } = useForm({
+    email: "",
+    password: ""
+  })
 
-  function handleSubmit(e) {
-    e.preventDefault()
+  function handleSignIn(data) {
+    const { email, password } = data
     if (!email | !password) {
       return toast.warning('Preencha todos os campos!')
     }
@@ -45,21 +45,35 @@ export function SignIn() {
         <div>
           <TitleForm title='Faça seu login' />
           {
-            loading ? <LoadingContainer /> : <form
-              className="flex gap-2 flex-col mt-3"
-            >
-              <Input type='text' icon={FiMail} placeholder='Email' name={'email'} onChange={e => setEmail(e.target.value)} />
-              <Input type='password' placeholder='Senha' icon={FiLock} onChange={e => setPassword(e.target.value)} />
-              <div className="h-14">
-                <Button title="Entrar" onClick={handleSubmit} />
-              </div>
-              <div className="flex items-center justify-center">
-                <GoogleLogin
-                  onSuccess={googleResponse => handleSignInWithGoogle(googleResponse)}
-                  onError={() => toast.error('Error ao fazer login!')}
+            loading ? <LoadingContainer /> :
+              <form
+                className="flex gap-2 flex-col mt-3"
+              >
+                <Input
+                  type='text'
+                  placeholder='Email'
+                  icon={FiMail}
+                  register={register('email')}
                 />
-              </div>
-            </form>
+                <Input
+                  type='password'
+                  placeholder='Senha'
+                  icon={FiLock}
+                  register={register('password')}
+                />
+                <div className="h-14">
+                  <Button
+                    title="Entrar"
+                    onClick={handleSubmit(handleSignIn)}
+                  />
+                </div>
+                <div className="flex items-center justify-center">
+                  <GoogleLogin
+                    onSuccess={googleResponse => handleSignInWithGoogle(googleResponse)}
+                    onError={() => toast.error('Error ao fazer login!')}
+                  />
+                </div>
+              </form>
           }
         </div>
         <div className='flex justify-center'>

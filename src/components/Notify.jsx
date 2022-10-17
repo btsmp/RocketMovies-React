@@ -7,8 +7,8 @@ export function Notify() {
     <ToastContainer
       theme="dark"
       position="top-right"
-      autoClose={5000}
-      hideProgressBar={false}
+      autoClose={1000}
+      hideProgressBar={true}
       newestOnTop={false}
       closeOnClick
       rtl={false}

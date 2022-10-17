@@ -1,14 +1,16 @@
-import { TitleForm } from './../components/TitleForm';
+import { TitleForm } from '../components/TitleForm';
 import { TextButton } from "../components/TextButton";
-import { Button } from './../components/Button';
+import { api, tmdbApi } from '../services/api';
+import { Button } from '../components/Button';
+import { useNavigate } from 'react-router-dom';
 import { Header } from "../components/Header";
 import { Marker } from "../components/Marker";
 import { FiArrowLeft } from "react-icons/fi";
 import { Input } from '../components/Input';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { api } from './../services/api';
 import { toast } from 'react-toastify';
+import { useState } from 'react';
+
+
 
 export function NewNote() {
 
@@ -19,6 +21,8 @@ export function NewNote() {
 
   const [ tags, setTags ] = useState([])
   const [ tagValue, setTagValue ] = useState('')
+
+  const [ titleMovies, setTitleMovies ] = useState('')
 
   const navigate = useNavigate()
 
@@ -42,22 +46,36 @@ export function NewNote() {
       return toast.warning('Preencha todos os campos')
     }
 
+
     api.post('/notes', {
       title,
       description,
       rating: Number(rating),
-      tags
+      tags,
+      banner: titleMovies[ 0 ].poster_path
     })
     toast.success('Nota criada!')
     navigate('/')
   }
 
+  async function fetchMovieTitle(e) {
+    const movieTitle = e.target.value
+    setTitle(movieTitle)
+    const response = await tmdbApi.get(movieTitle)
+    const movies = response.data.results
+    setTitleMovies(movies.map(movie => (
+      {
+        title: movie.title ? movie.title : movie.name,
+        poster_path: movie.poster_path
+      }
+    )))
+  }
 
 
   return (
     <div className="grid grid-flow-row h-screen">
       <Header />
-      <div className="px-24 overflow-y-scroll">
+      <div className="px-24 overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full">
         <div>
           <TextButton to="/" title='Voltar' icon={FiArrowLeft} />
         </div>
@@ -66,7 +84,13 @@ export function NewNote() {
         </div>
         <form className="flex flex-col gap-10 mb-36">
           <div className="flex gap-10">
-            <Input placeholder="Título" type="text" onChange={e => setTitle(e.target.value)} />
+            <Input list='movie-title' placeholder="Título" type="text" onChange={fetchMovieTitle} />
+            <datalist id="movie-title">
+              {titleMovies ? titleMovies.map((movie, index) => {
+                return <option key={index} value={movie.title} />
+              }
+              ) : <></>}
+            </datalist>
             <select
               className="block  w-full bg-[#262529] text-[#948F99] p-4 rounded-lg focus:outline-none"
               placeholder='Sua nota'
@@ -95,6 +119,7 @@ export function NewNote() {
                 tags &&
                 tags.map((tag, index) => (
                   <Marker
+                    isNew={false}
                     value={tag}
                     key={index}
                     onClick={() => handleRemoveTag(tag)}
@@ -102,7 +127,7 @@ export function NewNote() {
                 ))
               }
               <Marker
-                isNew
+                isNew={true}
                 placeholder="Novo marcador"
                 value={tagValue}
                 onClick={handleAddTag}

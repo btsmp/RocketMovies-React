@@ -1,4 +1,5 @@
-import { FiPlus, FiX } from 'react-icons/fi'
+import { FiPlus, FiX } from 'react-icons/fi';
+
 export function Marker({ isNew, value, onClick, ...rest }) {
   return (
     <div

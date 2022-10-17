@@ -1,16 +1,28 @@
+import { Link, useNavigate } from "react-router-dom";
+import { CardMovie } from "../components/CardMovie";
+import { AiOutlinePlus } from "react-icons/ai";
 import { Button } from "../components/Button";
 import { Header } from "../components/Header";
-import { AiOutlinePlus } from "react-icons/ai"
-import { CardMovie } from "../components/CardMovie";
-import { Link } from "react-router-dom"
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { api } from './../services/api';
-import { data } from "autoprefixer";
+import { useEffect, useState } from 'react';
+import { api } from '../services/api';
 
 export function Home() {
   const [ notes, setNotes ] = useState([])
+  const [ search, setSearch ] = useState('')
+  const navigate = useNavigate()
 
+  function handleClickNote(note) {
+
+    navigate(`/details/${ note }`)
+  }
+
+  useEffect(() => {
+    async function getFilteredNotes() {
+      const response = await api.get(`/notes?title=${ search }`)
+      setNotes(response.data)
+    }
+    getFilteredNotes()
+  }, [ search ])
   useEffect(() => {
     async function getNotes() {
       const response = await api.get('/notes')
@@ -20,7 +32,7 @@ export function Home() {
   }, [])
   return (
     <div className="grid grid-flow-row h-screen">
-      <Header />
+      <Header handleSearch={setSearch} />
 
       <div className="px-24 overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full relative">
 
@@ -33,7 +45,11 @@ export function Home() {
         <main className="flex gap-4 flex-col h-[65vh] overflow-y-auto scrollbar-thin scrollbar-thumb-black scrollbar-track-transparent scrollbar-thumb-rounded-full scrollbar-track-rounded-full mb-9">
           {notes &&
             notes.map(note => (
-              <CardMovie key={note.id} data={note} />
+              <CardMovie
+                key={note.id}
+                data={note}
+                onClick={() => handleClickNote(note.id)}
+              />
             ))
           }
         </main>

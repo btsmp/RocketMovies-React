@@ -1,6 +1,6 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { api } from "../services/api"
-import { toast } from 'react-toastify'
+import { api } from "../services/api";
+import { toast } from 'react-toastify';
 
 const AuthContext = createContext({})
 
@@ -71,6 +71,26 @@ function AuthProvider({ children }) {
     }
   }
 
+  async function updateProfile({ user, avatarFile }) {
+    try {
+      if (avatarFile) {
+        const fileUploadForm = new FormData()
+        fileUploadForm.append("avatar", avatarFile)
+        const response = await api.patch('/users/avatar', fileUploadForm)
+        user.avatar = response.data.avatar
+      }
+
+      await api.put('/users', user)
+
+      localStorage.setItem("@rocketmovies-user", JSON.stringify(user))
+      setData({ user, token: data.token })
+      toast.success('Perfil atualizado!')
+    } catch (err) {
+
+      toast.error('Ocorreu um erro ao atualizar o perfil.')
+
+    }
+  }
 
 
   function signOut() {
@@ -97,6 +117,7 @@ function AuthProvider({ children }) {
       signIn,
       signOut,
       signInWithGoogle,
+      updateProfile,
       loading,
       user: data.user
     }}>

@@ -1,6 +1,5 @@
-import star from "../assets/star.svg"
-import starFull from "../assets/star-full.svg"
-import { useEffect } from 'react';
+import starFull from "../assets/star-full.svg";
+import star from "../assets/star.svg";
 
 export function Stars({ rating }) {
 

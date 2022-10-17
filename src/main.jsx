@@ -1,16 +1,18 @@
-import React from 'react'
-import './styles/main.css'
+import ReactDOM from 'react-dom/client';
+import React from 'react';
+import './styles/main.css';
 
-import ReactDOM from 'react-dom/client'
-import { Routes } from './routes'
-import { AuthProvider } from './hooks/auth'
-import { Notify } from './components/notify'
 import { GoogleOAuthProvider } from '@react-oauth/google';
+import { Notify } from './components/notify';
+import { AuthProvider } from './hooks/auth';
+import { CLIENT_ID_GOOGLE } from '../env'
+import { Routes } from './routes';
+
 
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <GoogleOAuthProvider clientId="525163972680-nrtnr2ghp8tusofcdg398rttlkpagfq8.apps.googleusercontent.com">
+    <GoogleOAuthProvider clientId={CLIENT_ID_GOOGLE}>
       <AuthProvider>
         <Routes />
         <Notify />
