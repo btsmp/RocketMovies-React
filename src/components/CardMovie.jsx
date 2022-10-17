@@ -8,7 +8,7 @@ export function CardMovie({ data, ...rest }) {
       {
         data.banner ?
           <div>
-            <div className="h-40 rounded-sm overflow-hidden">
+            <div className="h-40 w-24 rounded-sm overflow-hidden">
               <img src={`https://image.tmdb.org/t/p/w200${ data.banner }`} className="h-full w-auto" />
             </div>
           </div> : <></>
