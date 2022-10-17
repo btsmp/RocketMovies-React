@@ -1,6 +1,8 @@
-# RocketMovies
+<h1 align="center">RocketMovies</h1>
 
-![Demo](https://i.imgur.com/c63b35n.gif)
+<p align="center">
+  <img src="https://i.imgur.com/c63b35n.gif">
+</p>
 
 #
 
@@ -16,7 +18,7 @@ Tecnologias usadas:
 #
 
 Features implementadas:
-- [x] Login Social com google
+- [x] Login Social com Google
 - [x] Recorte de imagens antes de salvar no perfil
 - [x] Integração com API do TMBD
 - [x] Uso de TailwindCSS em toda a aplicação
