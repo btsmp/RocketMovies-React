@@ -1,6 +1,8 @@
 # RocketMovies
 
-![PrintScreen Tela incial](https://i.imgur.com/fPVojnN.png)
+![Demo](https://i.imgur.com/c63b35n.gif)
+
+#
 
 Tecnologias usadas: 
 - [x] React.Js
@@ -26,5 +28,7 @@ Features implementadas:
 - [x] [Live Demo](https://rocketmovie-bsmp.netlify.app)
 - [x] [Back end](https://github.com/btsmp/RocketMovies-Server)
 
+#
 
-
+![PrintScreen Tela incial](https://i.imgur.com/fPVojnN.png)
+![PrintScreen Tela incial](https://i.imgur.com/PMCp7T8.png)

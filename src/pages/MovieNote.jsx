@@ -83,8 +83,8 @@ export function MovieNote() {
           <div >
             <img src={`https://image.tmdb.org/t/p/w200${ note.banner }`} alt="" />
           </div>
-        </div>
-        <main className="text-[#F4EDE8] text-justify mb-11 ">
+        </div >
+        <main className="text-[#F4EDE8] text-justify my-11 ">
           {note.description}
           <div>
             <button
